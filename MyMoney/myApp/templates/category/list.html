@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de categorias{% endblock %}
+
+{% block content %}
+<div class="offset-1 col-10 list-div">
+    <h1>Lista de categorias</h1>
+    <a id="add-link" href="/novaCategoria/">
+        <div class="col-2 add-div">
+            <i class="fas fa-plus"></i> Adicionar categoria
+        </div>
+    </a>
+    <div class="col-9 search-div">
+        <form method="GET" id="search-form">
+            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da tarefa para buscar..." value="{{ request.GET.search }}">
+            <i class="fas fa-search"></i>
+        </form>
+    </div>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>    
+    {% endif %}
+    <ul class="category-list">
+        {% for categoria in categorias %}
+        <li class="category-item">
+            <span><a href="/categoria/{{categoria.id}}">{{categoria.nome}}</a></span>
+            <a href="/deletarCategoria/{{categoria.id}}" class="delete-btn">
+                <span><i class="fas fa-trash"></i></span>
+            </a>
+            <a href="/editarCategoria/{{categoria.id}}">
+                <span><i class="fas fa-edit"></i></span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+            <span class="step-links">
+                {% if categorias.has_previous %}
+                    <a href="?page={{ categorias.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+                {% endif %}
+            
+                {% if categorias.paginator.num_pages %}
+                <span class="current">
+                    {{ categorias.number }} de {{ categorias.paginator.num_pages }}
+                </span>
+                {% endif %}
+            
+                {% if categorias.has_next %}
+                    <a href="?page={{ categorias.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+                {% endif %}
+            </span>
+        </div>
+</div>
+{% endblock %}
