@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Lancamento{% endblock %}
+
+{% block content %}
+<div class="offset-1 col-10 list-div"> 
+    <h1>{{lancamento.categoria}}</h1>
+    <h1>{{lancamento.datahora}}</h1>
+    <h1>{{lancamento.observacao}}</h1>
+    <h1>{{lancamento.valor}}</h1>
+    <h1>{{lancamento.tipo}}</h1>
+    <p></p>
+</div>
+{% endblock %}

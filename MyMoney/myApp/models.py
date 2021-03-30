@@ -8,7 +8,7 @@ class Categoria(models.Model):
     )
 
     nome = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=1,choices=TIPOS)
+    tipo = models.CharField(max_length=31,choices=TIPOS)
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -25,7 +25,7 @@ class Lancamento(models.Model):
 
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
-    datahora = models.DateTimeField(null=False)
+    datahora = models.DateTimeField(null=False, auto_now_add=True)
     valor = models.FloatField(max_length=10.2)
     tipo = models.CharField(max_length=1,choices=TIPOS)
     observacao = models.CharField(max_length=100,null=True,blank=True)

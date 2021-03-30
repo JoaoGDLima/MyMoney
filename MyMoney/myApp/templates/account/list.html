@@ -1,43 +1,51 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista de Tarefas{% endblock %}
+{% block title %}Lista de lançamentos{% endblock %}
 
 {% block content %}
 <div class="offset-1 col-10 list-div">
-    <h1>Lista de Tarefas</h1>
-    <div class="col-2 add-div">
-        <i class="fas fa-plus"></i> Adicionar tarefa
-    </div>
-    <div class="col-9 search-div">
-        <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da tarefa para buscar...">
-        <i class="fas fa-search"></i>
-    </div>
-    <ul class="account-list">
-        <li class="account-item">
-            <span>Título da tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
+    <h1>Lista de lançamentos</h1>
+    <a id="add-link" href="/novoLancamento/">
+        <div class="col-2 add-div">
+            <i class="fas fa-plus"></i> Adicionar lançamento
+        </div>
+    </a>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>    
+    {% endif %}
+    <ul class="category-list">
+        {% for lancamento in lancamentos %}
+        <li class="category-item">
+            <span><a href="/lancamento/{{lancamento.id}}">{{lancamento.observacao}}</a></span>
+            <a href="/deletarLancamento/{{lancamento.id}}" class="delete-btn">
+                <span><i class="fas fa-trash"></i></span>
+            </a>
+            <a href="/editarLancamento/{{lancamento.id}}">
+                <span><i class="fas fa-edit"></i></span>
+            </a>
         </li>
-        <li class="account-item">
-            <span>Título da tarefa</span>
-            <span><i class="fas fa-trash"></i></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
-        <li class="account-item">
-            <span>Título da tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
-        <li class="account-item">
-            <span>Título da tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
-        <li class="account-item">
-            <span>Título da tarefa</span>
-            <span><i class="fas fa-trash"></i></span>
-            <span><i class="fas fa-edit"></i></span>
-        </li>
+        {% endfor %}
     </ul>
+    <div class="pagination">
+            <span class="step-links">
+                {% if lancamentos.has_previous %}
+                    <a href="?page={{ lancamentos.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+                {% endif %}
+            
+                {% if lancamentos.paginator.num_pages %}
+                <span class="current">
+                    {{ lancamentos.number }} de {{ lancamentos.paginator.num_pages }}
+                </span>
+                {% endif %}
+            
+                {% if lancamentos.has_next %}
+                    <a href="?page={{ lancamentos.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+                {% endif %}
+            </span>
+        </div>
 </div>
 {% endblock %}

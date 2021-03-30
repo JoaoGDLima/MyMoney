@@ -6,11 +6,66 @@ from django.contrib.auth.decorators import login_required
 from .models import Lancamento
 from .models import Categoria
 from .forms import categoryForm
+from .forms import accountForm
 
 @login_required
 def accountList(request):
-    lancamentos = Lancamento.objects.all()
+    search = request.GET.get('search')
+
+    if search:
+        lancamentos = Lancamento.objects.filter(nome__icontains=search, usuario=request.user)
+    else:
+        lancamentos_list = Lancamento.objects.all().order_by('datahora').filter(usuario=request.user)
+        paginator = Paginator(lancamentos_list, 50)
+
+        page = request.GET.get('page')
+        lancamentos = paginator.get_page(page)
+    
     return render(request, 'account/list.html', {'lancamentos': lancamentos})
+
+@login_required
+def newAccount(request):
+    if request.method == 'POST' : 
+        form =  accountForm(request.POST)
+
+        if form.is_valid():
+            lancamento = form.save(commit=False)
+            lancamento.usuario = request.user
+            lancamento.save()
+            return redirect('/lancamentos/')
+    else:
+        form =  accountForm
+        return render(request, 'account/addAccount.html', {'form': form})
+
+@login_required
+def editAccount(request, id):
+    lancamento = get_object_or_404(Lancamento, pk=id)
+    form = accountForm(instance=lancamento)
+
+    if request.method == 'POST' : 
+        form = accountForm(request.POST, instance=lancamento)
+
+        if form.is_valid():
+            lancamento.save()
+            return redirect('/lancamentos/')
+        else:
+            return render(request, 'account/editAccount.html', {'form': form, 'lancamento': lancamento})  
+    else:
+        return render(request, 'account/editAccount.html', {'form': form, 'lancamento': lancamento})  
+
+@login_required
+def deleteAccount(request, id):
+    lancamento = get_object_or_404(Lancamento, pk=id)
+    lancamento.delete()
+    
+    messages.info(request, 'Lançamento deletado com sucesso.')
+
+    return redirect('/lancamentos/')
+
+@login_required
+def accountView(request, id):
+    lancamento = get_object_or_404(Lancamento, pk=id)
+    return render(request, 'account/account.html', {'lancamento': lancamento})
 
 @login_required
 def categoryList(request):
