@@ -18,7 +18,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   nginx_homo:
-    build: ./nginx
+    build: ./nginx--homo
     volumes: 
       - .:/static
     ports: 
