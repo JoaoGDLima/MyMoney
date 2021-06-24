@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - 8000:8001
+      - 8000:8000
     depends_on:
       - db
   db:
@@ -17,6 +17,15 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+  nginx:
+    build: ./nginx
+    volumes: 
+      - .:/static
+    ports: 
+      - 80:80
+    depends_on:
+      - prod
+    
 
 volumes:
   postgres_data:
