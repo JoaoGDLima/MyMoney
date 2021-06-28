@@ -11,8 +11,10 @@ services:
   db:
     image: postgres:13
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   nginx:
@@ -20,7 +22,7 @@ services:
     volumes: 
       - .:/static
     ports: 
-      - 81:80
+      - 81:81
     depends_on:
       - homo
     
