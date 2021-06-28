@@ -7,15 +7,15 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - db
-  db:
+      - db-prod
+  db-prod:
     image: postgres:13
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
       - postgres_data_prod:/var/lib/postgresql/data/
-  nginx:
+  nginx-prod:
     build: ./nginx-prod
     volumes: 
       - .:/static-prod
