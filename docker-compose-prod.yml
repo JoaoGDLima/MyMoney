@@ -14,16 +14,16 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_prod:/var/lib/postgresql/data/
   nginx:
-    build: ./nginx
+    build: ./nginx-prod
     volumes: 
-      - .:/static
+      - .:/static-prod
     ports: 
-      - 80:81
+      - 80:80
     depends_on:
       - prod
     
 
 volumes:
-  postgres_data:
+    postgres_data_prod:
