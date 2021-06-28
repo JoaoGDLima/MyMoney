@@ -34,3 +34,10 @@ class Lancamento(models.Model):
 
     def __str__(self):
         return self.observacao
+
+
+class Tipo(models.Model):
+    nome = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.nome
