@@ -25,7 +25,7 @@ services:
     volumes: 
       - .:/static
     ports: 
-      - 81:81
+      - 80:81
     depends_on:
       - homo
     
