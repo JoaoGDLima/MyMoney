@@ -80,7 +80,7 @@ DATABASES = {
     #    'PORT': 5432,
     #}
 
-    if "DB_HOST" in os.environ:
+    if 'DB_HOST' in os.environ:
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'HOST': os.environ.get('DB_HOST'),
