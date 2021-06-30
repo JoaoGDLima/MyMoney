@@ -91,5 +91,5 @@ class LancamentoTestCase(TestCase):
         self.assertEquals(l1.categoria.nome, 'Alimentação')
     
     def test_retorno_usuario_lancamento(self):
-        l1 = Lancamento.objects.get(observacao = 'teste')s
+        l1 = Lancamento.objects.get(observacao = 'teste')
         self.assertEquals(l1.usuario.username, 'test')
