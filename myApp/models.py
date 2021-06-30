@@ -36,7 +36,7 @@ class Lancamento(models.Model):
         return self.observacao
 
 
-class Tipo(models.Model):
+class Teste(models.Model):
     nome = models.CharField(max_length=100)
     
     def __str__(self):
