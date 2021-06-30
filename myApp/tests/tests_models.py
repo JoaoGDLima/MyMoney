@@ -75,21 +75,21 @@ class LancamentoTestCase(TestCase):
         )
     
     def test_retorno_observacao_lancamento(self):
-        l1 = Lancamento.objects.get(id=1)
+        l1 = Lancamento.objects.get(observacao = 'teste')
         self.assertEquals(l1.__str__(), 'teste')
     
     def test_retorno_valor_lancamento(self):
-        l1 = Lancamento.objects.get(id=1)
+        l1 = Lancamento.objects.get(observacao = 'teste')
         self.assertEquals(l1.valor, 5.0)
 
     def test_retorno_tipo_lancamento(self):
-        l1 = Lancamento.objects.get(id=1)
+        l1 = Lancamento.objects.get(observacao = 'teste')
         self.assertEquals(l1.tipo, 'D')
     
     def test_retorno_categoria_lancamento(self):
-        l1 = Lancamento.objects.get(id=1)
+        l1 = Lancamento.objects.get(observacao = 'teste')
         self.assertEquals(l1.categoria.nome, 'Alimentação')
     
     def test_retorno_usuario_lancamento(self):
-        l1 = Lancamento.objects.get(id=1)
+        l1 = Lancamento.objects.get(observacao = 'teste')s
         self.assertEquals(l1.usuario.username, 'test')
