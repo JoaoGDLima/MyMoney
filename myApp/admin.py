@@ -5,3 +5,4 @@ from .models import Lancamento
 
 admin.site.register(Categoria)
 admin.site.register(Lancamento)
+admin.site.register(Tipo2)
